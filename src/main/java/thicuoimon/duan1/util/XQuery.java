@@ -2,6 +2,7 @@ package thicuoimon.duan1.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -76,12 +77,42 @@ public class XQuery {
                     Object value = resultSet.getObject(name.substring(3));
                     method.invoke(bean, value);
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SQLException e) {
-                    System.out.printf("+ Column '%s' not found!\r\n", name.substring(3));
+                    // Column not found - bỏ qua silently
                 }
             }
         }
         return bean;
     }
-    
+
+    /**
+     * Truy vấn 1 giá trị BigDecimal (dùng cho SUM, AVG...)
+     */
+    public static BigDecimal valueBigDecimal(String sql, Object... values) {
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, values);
+            if (rs.next()) {
+                BigDecimal val = rs.getBigDecimal(1);
+                return val != null ? val : BigDecimal.ZERO;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        return BigDecimal.ZERO;
+    }
+
+    /**
+     * Truy vấn 1 giá trị int (dùng cho COUNT...)
+     */
+    public static int valueInt(String sql, Object... values) {
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, values);
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        return 0;
+    }
 
 }

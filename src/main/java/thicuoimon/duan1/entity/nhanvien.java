@@ -33,6 +33,7 @@ public class nhanvien {
     private Date ngayxoa;
     private boolean trangthaian;
     private String matkhau;
+    private String tenvaitro;
 
     public String getMatkhau() {
         return matkhau;
@@ -45,7 +46,7 @@ public class nhanvien {
     public nhanvien() {
     }
 
-    public nhanvien(int idnhanvien, int idvaitro, String manhanvien, String hovaten, String anh, Date ngaySinh, String cccd, boolean gioitinh, String diaChi, String email, String sodienthoai, String nguoithem, String nguoisua, String nguoixoa, Date ngaytao, Date ngaysua, Date ngayxoa, boolean trangthaian, String matkhau) {
+    public nhanvien(int idnhanvien, int idvaitro, String manhanvien, String hovaten, String anh, Date ngaySinh, String cccd, boolean gioitinh, String diaChi, String email, String sodienthoai, String nguoithem, String nguoisua, String nguoixoa, Date ngaytao, Date ngaysua, Date ngayxoa, boolean trangthaian, String matkhau,String tenvaitro) {
         this.idnhanvien = idnhanvien;
         this.idvaitro = idvaitro;
         this.manhanvien = manhanvien;
@@ -65,6 +66,7 @@ public class nhanvien {
         this.ngayxoa = ngayxoa;
         this.trangthaian = trangthaian;
         this.matkhau = matkhau;
+        this.tenvaitro = tenvaitro;
     }
     
 
@@ -251,6 +253,13 @@ public class nhanvien {
 
     public void setNgayxoa(Date ngayxoa) {
         this.ngayxoa = ngayxoa;
+    }
+    public String getTenvaitro() {
+        return tenvaitro;
+    }
+
+    public void setTenvaitro(String tenvaitro) {
+        this.tenvaitro = tenvaitro;
     }
 
     @Override

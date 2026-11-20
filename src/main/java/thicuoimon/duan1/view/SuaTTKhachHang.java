@@ -4,6 +4,11 @@
  */
 package thicuoimon.duan1.view;
 
+import javax.swing.JOptionPane;
+import thicuoimon.duan1.dao.Impl.khachhangDAOImpl;
+import thicuoimon.duan1.dao.khachhangDAO;
+
+
 /**
  *
  * @author honga
@@ -19,7 +24,9 @@ public class SuaTTKhachHang extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Hoạt động", "Ngừng hoạt động"}));
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Hoạt động");
+        jComboBox1.addItem("Ngừng hoạt động");
     }
 
     /**
@@ -183,31 +190,100 @@ public class SuaTTKhachHang extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            thicuoimon.duan1.entity.KhachHang1 kh = new thicuoimon.duan1.entity.KhachHang1();
-            kh.setIdkhachhang(Integer.parseInt(jTextField1.getText()));
-            kh.setMakhachhang(jTextField2.getText());
-            kh.setTenkhachhang(jTextField3.getText());
-            kh.setSodienthoai(jTextField4.getText());
-            kh.setEmail(jTextField5.getText());
-            kh.setGioitinh(jRadioButton1.isSelected() ? "Nam" : "Nữ");
+        khachhangDAO repo = new khachhangDAOImpl();
+    try {
+        String ma = jTextField2.getText().trim();
+        String ten = jTextField3.getText().trim();
+        String sdt = jTextField4.getText().trim();
+        String email = jTextField5.getText().trim();
+        String ngaySinhStr = jTextField6.getText().trim();
+        int id = Integer.parseInt(jTextField1.getText());
 
-            // XỬ LÝ NGÀY SINH: Chuyển ngược từ dd-MM-yyyy về Date để lưu
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-            java.util.Date date = sdf.parse(jTextField6.getText());
-            kh.setNgaysinh(new java.sql.Date(date.getTime()));
-
-            kh.setTrangthai(jComboBox1.getSelectedIndex() == 0 ? 1 : 0);
-
-            new thicuoimon.duan1.repository.KhachHangRepository().update(kh);
-            javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-            this.dispose();
-        } catch (java.text.ParseException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi: Định dạng ngày phải là dd-MM-yyyy");
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi định dạng dữ liệu!");
+        // ===== 1. CHECK RỖNG =====
+        if (ma.isEmpty() || ten.isEmpty() || sdt.isEmpty() || email.isEmpty() || ngaySinhStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống!");
+            return;
         }
+
+        // ===== 2. FORMAT =====
+        if (!ma.matches("^KH\\d{3}$")) {
+            JOptionPane.showMessageDialog(this, "Mã KH phải dạng KHxxx!");
+            return;
+        }
+
+        if (!ten.matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(this, "Tên không hợp lệ!");
+            return;
+        }
+
+        if (!sdt.matches("^0\\d{9}$")) {
+            JOptionPane.showMessageDialog(this, "SĐT phải bắt đầu bằng 0 và đủ 10 số!");
+            return;
+        }
+        if (repo.isEmailExistForUpdate(email, id)) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại!");
+            return;
+        }
+
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+            return;
+        }
+
+        // ===== 3. DATE =====
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(false);
+        java.util.Date date = sdf.parse(ngaySinhStr);
+
+        // check >= 18 tuổi
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.add(java.util.Calendar.YEAR, -18);
+        if (date.after(cal.getTime())) {
+            JOptionPane.showMessageDialog(this, "Phải đủ 18 tuổi!");
+            return;
+        }
+
+        // ===== 4. CHECK TRÙNG =====
+        if (repo.isMaKhachHangExistForUpdate(ma, id)) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại!");
+            return;
+        }
+
+        if (repo.isSDTExistForUpdate(sdt, id)) {
+            JOptionPane.showMessageDialog(this, "SĐT đã tồn tại!");
+            return;
+        }
+
+        // ===== 5. SET DATA =====
+        thicuoimon.duan1.entity.khachhang kh = new thicuoimon.duan1.entity.khachhang();
+        kh.setIdkhachhang(id);
+        kh.setMakhachhang(ma);
+        kh.setHovaten(ten);
+        kh.setSodienthoai(sdt);
+        kh.setEmail(email);
+        kh.setNgaysinh(new java.sql.Date(date.getTime()));
+
+        // ===== 6. SET TRẠNG THÁI =====
+        String tt = jComboBox1.getSelectedItem().toString();
+        boolean trangThai = tt.equals("Hoạt động");
+        kh.setTrangthaian(trangThai);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không?");
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        repo.update(kh);
+
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+        this.dispose();
+
+    } catch (java.text.ParseException e) {
+        JOptionPane.showMessageDialog(this, "Ngày phải đúng định dạng dd-MM-yyyy!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -247,20 +323,16 @@ public class SuaTTKhachHang extends javax.swing.JDialog {
         });
     }
 
-    public void setForm(thicuoimon.duan1.entity.KhachHang1 kh) {
+    public void setForm(thicuoimon.duan1.entity.khachhang kh) {
         jTextField1.setText(String.valueOf(kh.getIdkhachhang()));
         jTextField1.setEditable(false);
         jTextField2.setText(kh.getMakhachhang());
-        jTextField3.setText(kh.getTenkhachhang());
+        jTextField3.setText(kh.isTrangthaian() ? "Hoạt động" : "Không hoạt động");
         jTextField4.setText(kh.getSodienthoai());
         jTextField5.setText(kh.getEmail());
 
         // Xử lý Giới tính
-        if ("Nam".equalsIgnoreCase(kh.getGioitinh())) {
-            jRadioButton1.setSelected(true);
-        } else {
-            jRadioButton2.setSelected(true);
-        }
+        
 
         // XỬ LÝ NGÀY SINH: Chuyển từ DB (yyyy-MM-dd) sang dd-MM-yyyy để hiển thị
         if (kh.getNgaysinh() != null) {
@@ -268,7 +340,7 @@ public class SuaTTKhachHang extends javax.swing.JDialog {
             jTextField6.setText(sdf.format(kh.getNgaysinh()));
         }
 
-        jComboBox1.setSelectedIndex(kh.getTrangthai() == 1 ? 0 : 1);
+        jComboBox1.setSelectedIndex(kh.isTrangthaian()? 0 : 1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

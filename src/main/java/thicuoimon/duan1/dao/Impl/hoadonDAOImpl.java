@@ -22,9 +22,16 @@ public class hoadonDAOImpl implements hoadonDAO{
             + "where tongtiensaugiam between ? and ? and trangthaian=1";
     String cre = "insert into hoa_don(idnhanvien,mahoadon,trangthai,ngaythem,trangthaian)\n"
             + " values (?,?,?,?,?)";
-    String upd = "update hoa_don set idnhanvien=?,idkhachhang=?,idphuongthucthanhtoan=?,idphieugiamgia=?,iddiachiphieunguoinhan=?,mahoadon=?,loaihoadon=?,ngayxuathoadon=?,tongtienchuagiam=?,sotiengiamgia=?,tongtiensaugiam=?,ghichu=?,trangthai=?,nguoithem=?,nguoisua=?,nguoixoa=?,ngaythem=?,ngaysua=?,ngayxoa=?,trangthaian=? where idhoadon=?";
+    String upd = "UPDATE hoa_don SET "
+        + "idnhanvien=?, idkhachhang=?, idphuongthucthanhtoan=?, "
+        + "idphieugiamgia=?, iddiachiphieunguoinhan=?, mahoadon=?, "
+        + "ngayxuathoadon=?, tongtienchuagiam=?, sotiengiamgia=?, "
+        + "tongtiensaugiam=?, ghichu=?, trangthai=?, "
+        + "nguoithem=?, nguoisua=?, nguoixoa=?, "
+        + "ngaythem=?, ngaysua=?, ngayxoa=?, trangthaian=? "
+        + "WHERE idhoadon=?";
     String dele = "  update hoa_don  set trangthaian=0 where idhoadon=?";
-    String findall = "select * from hoa_don where trangthaian=1";
+    String findall = "select * from hoa_don where trangthaian=1 order by ngayxuathoadon desc, idhoadon desc";
     String fillallbenbanhang = " select * from hoa_don where trangthaian=1 and trangthai=1\n"
             + " order by idhoadon desc";
     String findallcbo = "select * from hoa_don ";
@@ -76,27 +83,26 @@ public class hoadonDAOImpl implements hoadonDAO{
     public void update(hoadon entity) {
         //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         Object[] values = {
-            entity.getIdnhanvien(),
-            entity.getIdkhachhang(),
-            entity.getIdphuongthucthanhtoan(),
-            entity.getIdphieugiamgia(),
-            entity.getIddiachiphieunguoinhan(),
-            entity.getMahoadon(),
-            entity.isLoaihoadon(),
-            entity.getNgayxuathoadon(),
-            entity.getTongtienchuagiam(),
-            entity.getSotiengiamgia(),
-            entity.getTongtiensaugiam(),
-            entity.getGhichu(),
-            entity.getTrangthai(),
-            entity.getNguoithem(),
-            entity.getNguoisua(),
-            entity.getNguoixoa(),
-            entity.getNgaythem(),
-            entity.getNgaysua(),
-            entity.getNgayxoa(),
-            entity.isTrangthaian(),
-            entity.getIdhoadon()
+    entity.getIdnhanvien(),
+    entity.getIdkhachhang(),
+    entity.getIdphuongthucthanhtoan(),
+    entity.getIdphieugiamgia(),
+    entity.getIddiachiphieunguoinhan(),
+    entity.getMahoadon(),
+    entity.getNgayxuathoadon(),
+    entity.getTongtienchuagiam(),
+    entity.getSotiengiamgia(),
+    entity.getTongtiensaugiam(),
+    entity.getGhichu(),
+    entity.getTrangthai(),
+    entity.getNguoithem(),
+    entity.getNguoisua(),
+    entity.getNguoixoa(),
+    entity.getNgaythem(),
+    entity.getNgaysua(),
+    entity.getNgayxoa(),
+    entity.isTrangthaian(), // 19 tham số
+    entity.getIdhoadon()
         };
         XJdbc.executeUpdate(upd, values);
     }

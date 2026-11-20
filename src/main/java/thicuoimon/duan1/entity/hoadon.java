@@ -15,11 +15,12 @@ public class hoadon {
     private int idhoadon;
     private int idnhanvien;
     private Integer idkhachhang;
+    private String sodienthoai;
     private int idphuongthucthanhtoan;
     private Integer idphieugiamgia;
     private Integer iddiachiphieunguoinhan;
     private String mahoadon;
-    private boolean loaihoadon;
+    
     private Date ngayxuathoadon;
     private BigDecimal tongtienchuagiam;
     private BigDecimal sotiengiamgia;
@@ -62,7 +63,7 @@ public class hoadon {
         this.idphieugiamgia = idphieugiamgia;
         this.iddiachiphieunguoinhan = iddiachiphieunguoinhan;
         this.mahoadon = mahoadon;
-        this.loaihoadon = loaihoadon;
+        
         this.ngayxuathoadon = ngayxuathoadon;
         this.tongtienchuagiam = tongtienchuagiam;
         this.sotiengiamgia = sotiengiamgia;
@@ -84,7 +85,7 @@ public class hoadon {
         this.idphieugiamgia = idphieugiamgia;
         this.iddiachiphieunguoinhan = iddiachiphieunguoinhan;
         this.mahoadon = mahoadon;
-        this.loaihoadon = loaihoadon;
+        
         this.ngayxuathoadon = ngayxuathoadon;
         this.tongtienchuagiam = tongtienchuagiam;
         this.sotiengiamgia = sotiengiamgia;
@@ -100,15 +101,16 @@ public class hoadon {
         this.trangthaian = trangthaian;
     }
 
-    public hoadon(int idhoadon, int idnhanvien, Integer idkhachhang, int idphuongthucthanhtoan, Integer idphieugiamgia, Integer iddiachiphieunguoinhan, String mahoadon, boolean loaihoadon, Date ngayxuathoadon, BigDecimal tongtienchuagiam, BigDecimal sotiengiamgia, BigDecimal tongtiensaugiam, String ghichu, int trangthai, String nguoithem, String nguoisua, String nguoixoa, Date ngaythem, Date ngaysua, Date ngayxoa, boolean trangthaian) {
+    public hoadon(int idhoadon, int idnhanvien, Integer idkhachhang, String sodienthoai, int idphuongthucthanhtoan, Integer idphieugiamgia, Integer iddiachiphieunguoinhan, String mahoadon, boolean loaihoadon, Date ngayxuathoadon, BigDecimal tongtienchuagiam, BigDecimal sotiengiamgia, BigDecimal tongtiensaugiam, String ghichu, int trangthai, String nguoithem, String nguoisua, String nguoixoa, Date ngaythem, Date ngaysua, Date ngayxoa, boolean trangthaian) {
         this.idhoadon = idhoadon;
         this.idnhanvien = idnhanvien;
         this.idkhachhang = idkhachhang;
+        this.sodienthoai = sodienthoai;
         this.idphuongthucthanhtoan = idphuongthucthanhtoan;
         this.idphieugiamgia = idphieugiamgia;
         this.iddiachiphieunguoinhan = iddiachiphieunguoinhan;
         this.mahoadon = mahoadon;
-        this.loaihoadon = loaihoadon;
+        
         this.ngayxuathoadon = ngayxuathoadon;
         this.tongtienchuagiam = tongtienchuagiam;
         this.sotiengiamgia = sotiengiamgia;
@@ -148,6 +150,14 @@ public class hoadon {
         this.idkhachhang = idkhachhang;
     }
 
+    public String getSodienthoai() {
+        return sodienthoai;
+    }
+
+    public void setSodienthoai(String sodienthoai) {
+        this.sodienthoai = sodienthoai;
+    }
+
     public int getIdphuongthucthanhtoan() {
         return idphuongthucthanhtoan;
     }
@@ -180,13 +190,6 @@ public class hoadon {
         this.mahoadon = mahoadon;
     }
 
-    public boolean isLoaihoadon() {
-        return loaihoadon;
-    }
-
-    public void setLoaihoadon(boolean loaihoadon) {
-        this.loaihoadon = loaihoadon;
-    }
 
     public Date getNgayxuathoadon() {
         return ngayxuathoadon;
@@ -291,5 +294,8 @@ public class hoadon {
     public void setTrangthaian(boolean trangthaian) {
         this.trangthaian = trangthaian;
     }
+
+    
+
     
 }

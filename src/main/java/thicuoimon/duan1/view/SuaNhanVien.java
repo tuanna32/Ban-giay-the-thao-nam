@@ -4,8 +4,10 @@
  */
 package thicuoimon.duan1.view;
 
-import thicuoimon.duan1.entity.NhanVien1;
-import thicuoimon.duan1.repository.NhanVienRepository;
+import javax.swing.JOptionPane;
+import thicuoimon.duan1.dao.Impl.nhanvienDAOImpl;
+import thicuoimon.duan1.dao.nhanvienDAO;
+import thicuoimon.duan1.entity.nhanvien;
 
 /**
  *
@@ -14,7 +16,7 @@ import thicuoimon.duan1.repository.NhanVienRepository;
 public class SuaNhanVien extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SuaNhanVien.class.getName());
-    NhanVienRepository repo = new NhanVienRepository();
+    nhanvienDAO repo = new nhanvienDAOImpl();
     int id;
 
     /**
@@ -25,6 +27,9 @@ public class SuaNhanVien extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         this.id = id;
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[]{"Đang làm việc", "Nghỉ việc"}
+        ));
         fillData(); // load dữ liệu lên form
     }
 
@@ -37,6 +42,7 @@ public class SuaNhanVien extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +61,9 @@ public class SuaNhanVien extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,20 +123,29 @@ public class SuaNhanVien extends javax.swing.JDialog {
 
         jLabel8.setText("Tên nhân viên");
 
+        jLabel9.setText("Chức vụ");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Nhân viên");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Quản lý");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(35, 35, 35)
-                .addComponent(jButton2)
-                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,9 +154,6 @@ public class SuaNhanVien extends javax.swing.JDialog {
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -147,8 +162,22 @@ public class SuaNhanVien extends javax.swing.JDialog {
                             .addComponent(jTextField6)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton2)))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +211,13 @@ public class SuaNhanVien extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -197,27 +232,77 @@ public class SuaNhanVien extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        NhanVien1 nv = new NhanVien1();
-        nv.setIdnhanvien(this.id); // Dùng ID đã truyền vào lúc mở form
-        nv.setManhanvien(jTextField2.getText().trim());
-        nv.setHovaten(jTextField6.getText().trim());
-        nv.setEmail(jTextField3.getText().trim());
-        nv.setSodienthoai(jTextField4.getText().trim());
-        nv.setMatkhau(jTextField5.getText().trim());
-        nv.setTrangthai(jComboBox1.getSelectedIndex());
-        // Đừng quên nv.setHovaten(...) nếu bạn có ô nhập họ tên
-        String selected = jComboBox1.getSelectedItem().toString();
-        int trangThaiToSave = selected.equals("Đang làm việc") ? 1 : 0;
-        nv.setTrangthai(trangThaiToSave);
+        String ma = jTextField2.getText().trim();
+        String ten = jTextField6.getText().trim();
+        String email = jTextField3.getText().trim();
+        String sdt = jTextField4.getText().trim();
+        String mk = jTextField5.getText().trim();
 
+        // 1. Check rỗng
+        if (ma.isEmpty() || ten.isEmpty() || email.isEmpty() || sdt.isEmpty() || mk.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Không được để trống!");
+            return;
+        }
+
+        // 2. Check trùng mã NV (trừ chính nó)
+        if (repo.existsMaNVExceptId(ma, id)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại!");
+            return;
+        }
+
+        // 3. Check SĐT
+        if (!sdt.matches("^0\\d{9}$")) {
+            JOptionPane.showMessageDialog(this, "SĐT không hợp lệ!");
+            return;
+        }
+
+        
+
+// 4. Check email
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+            return;
+        }
+
+        if (repo.existsEmailExceptId(email, id)) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại!");
+            return;
+        }
+
+        // OK thì update
+        nhanvien nv = new nhanvien();
+        nv.setIdnhanvien(this.id);
+        nv.setManhanvien(ma);
+        nv.setHovaten(ten);
+        nv.setEmail(email);
+        nv.setSodienthoai(sdt);
+        nv.setMatkhau(mk);
+        nv.setTrangthaian(jComboBox1.getSelectedIndex() == 0);
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Bạn có chắc muốn cập nhật không?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+        int idVaiTro = jRadioButton1.isSelected() ? 1 : 2;
+        nv.setIdvaitro(idVaiTro);
         repo.update(nv);
+
         javax.swing.JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Đang làm việc", "Nghỉ việc"}));
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,6 +342,7 @@ public class SuaNhanVien extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -268,7 +354,10 @@ public class SuaNhanVien extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -278,7 +367,7 @@ public class SuaNhanVien extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillData() {
-        NhanVien1 nv = repo.getById(id);
+        nhanvien nv = repo.getById(id);
         if (nv != null) {
             // Giả sử jTextField1 là ID, ta nên khóa nó lại
             jTextField1.setText(String.valueOf(nv.getIdnhanvien()));
@@ -292,12 +381,13 @@ public class SuaNhanVien extends javax.swing.JDialog {
             jTextField3.setText(nv.getEmail());
             jTextField4.setText(nv.getSodienthoai());
             jTextField5.setText(nv.getMatkhau());
-            jComboBox1.setSelectedIndex(nv.getTrangthai());
-            if (nv.getTrangthai() == 1) {
-                jComboBox1.setSelectedItem("Đang làm việc");
+            jComboBox1.setSelectedIndex(nv.isTrangthaian() ? 0 : 1);
+            if (nv.getIdvaitro() == 1) {
+                jRadioButton1.setSelected(true); // Quản lý
             } else {
-                jComboBox1.setSelectedItem("Nghỉ việc");
+                jRadioButton2.setSelected(true); // Nhân viên
             }
+
         }
     }
 }

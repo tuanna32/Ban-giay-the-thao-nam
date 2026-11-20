@@ -38,7 +38,7 @@ public class sanphamchitietDAOImpl implements sanphamchitietDAO{
             + "  order by idsanphamchitiet desc";
     String createSQL = "insert into san_pham_chi_tiet(idsanpham,idthuonghieu,idloaigiay,idkichco,idmausac,idxuatxu,\n"
             + "idchatlieu,idloaidegiay,idkieudang,masanphamchitiet,giaban,soluong,trangthai)\n"
-            + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,1)";
+            + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
     String updateSQL = "update san_pham_chi_tiet set idsanpham=?,idthuonghieu=?,idloaigiay=?,idkichco=?,idmausac=?,idxuatxu=?,\n"
             + "idchatlieu=?,idloaidegiay=?,idkieudang=?,giaban=?,soluong=?,trangthai=? where idsanphamchitiet=?";
     String deleteSQL = "delete from san_pham_chi_tiet where idsanpham=?";
@@ -87,7 +87,8 @@ public class sanphamchitietDAOImpl implements sanphamchitietDAO{
             entity.getIdkieudang(),
             entity.getMasanphamchitiet(),
             entity.getGiaban(),
-            entity.getSoluong()
+            entity.getSoluong(),
+            1
 
         };
         XJdbc.executeUpdate(createSQL, value);

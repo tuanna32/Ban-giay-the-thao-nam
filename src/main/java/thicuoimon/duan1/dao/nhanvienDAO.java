@@ -11,6 +11,23 @@ import thicuoimon.duan1.entity.nhanvien;
  *
  * @author Asus
  */
-public interface nhanvienDAO extends CrudDAO<nhanvien, Integer>{
+    public interface nhanvienDAO extends CrudDAO<nhanvien, Integer>{
       List<nhanvien> timkiem(String ten);
+      boolean existsMaNV(String ma);
+
+    boolean existsSDT(String sdt);
+
+    boolean existsEmail(String email);
+
+    boolean existsMaNVExceptId(String ma, int id);
+
+    boolean existsSDTExceptId(String sdt, int id);
+
+    boolean existsEmailExceptId(String email, int id);
+    nhanvien getById(int id);
+    int add(nhanvien nv);
+    int getTotalCount();
+    int delete(int id);
+     List<nhanvien> search(String keyword);
+      List<nhanvien> getPagination(int pageIndex, int pageSize);
 }

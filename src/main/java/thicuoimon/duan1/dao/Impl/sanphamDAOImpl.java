@@ -19,9 +19,9 @@ public class sanphamDAOImpl implements sanphamDAO{
 
     String fillALLSQL = "select idsanpham,masanpham,tensanpham,mota,trangthaisp from san_pham where trangthaian=1 order by idsanpham desc";
     String createSQL = "insert into san_pham(masanpham,tensanpham,mota,trangthaisp,ngaytao,trangthaian) values(?,?,?,0,?,1)";
-    String updateSQL = "update san_pham set tensanpham=?,mota=?,ngaysua=? where idsanpham=? and trangthaian=1";
+    String updateSQL = "update san_pham set tensanpham=?,mota=?,trangthaisp=?,ngaysua=? where idsanpham=? and trangthaian=1";
     String findByTen = "select idsanpham,masanpham,tensanpham,mota,trangthaisp from san_pham where tensanpham like ? and trangthaian=1 order by idsanpham desc";
-    String findByMa = "select idsanpham,masanpham,tensanpham,mota,trangthaisp,nguoithem,nguoisua,nguoixoa,ngaytao,ngaysua,ngayxoa from san_pham where masanpham like ? and trangthaian=1 order by idsanpham desc";
+    String findByMa = "select idsanpham,masanpham,tensanpham,mota,trangthaisp,nguoithem,nguoisua,nguoixoa,ngaytao,ngaysua,ngayxoa from san_pham where masanpham like ? order by idsanpham desc";
     String findByTrangThai = "select idsanpham,masanpham,tensanpham,mota,trangthaisp from san_pham where trangthaisp=? and trangthaian=1 order by idsanpham desc ";
     String findByID = "select idsanpham,masanpham,tensanpham,mota,trangthaisp from san_pham where idsanpham=? and trangthaian=1 order by idsanpham desc";
     String updateSoluongton = "UPDATE san_pham "
@@ -79,6 +79,7 @@ public class sanphamDAOImpl implements sanphamDAO{
         Object[] value = {
             entity.getTensanpham(),
             entity.getMota(),
+            entity.isTrangthaisp(),
             entity.getNgaysua(),
             entity.getIdsanpham()
         };

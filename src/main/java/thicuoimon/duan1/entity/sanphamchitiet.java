@@ -39,24 +39,38 @@ public class sanphamchitiet {
     public sanphamchitiet(int idsanphamchitiet) {
         this.idsanphamchitiet = idsanphamchitiet;
     }
+    public sanphamchitiet(int idsanphamchitiet,
+                     int idsanpham,
+                     int idthuonghieu,
+                     int idloaigiay,
+                     int idkichco,
+                     int idmausac,
+                     int idxuatxu,
+                     int idchatlieu,
+                     int idloaidegiay,
+                     int idkieudang,
+                     BigDecimal giaban,
+                     int soluong,
+                     boolean trangthai) {
 
-    public sanphamchitiet(int idsanphamchitiet, int idsanpham, int idthuonghieu, int idloaigiay, int idkichco, int idgioitinh, int idmausac, int idxuatxu, int idchatlieu, int idloaidegiay, int idkieudang, BigDecimal giaban, int soluong, boolean trangthai) {
-        this.idsanphamchitiet = idsanphamchitiet;
-        this.idsanpham = idsanpham;
-        this.idthuonghieu = idthuonghieu;
-        this.idloaigiay = idloaigiay;
-        this.idkichco = idkichco;
-        
-        this.idmausac = idmausac;
-        this.idxuatxu = idxuatxu;
-        this.idchatlieu = idchatlieu;
-        this.idloaidegiay = idloaidegiay;
-        
-        this.idkieudang = idkieudang;
-        this.giaban = giaban;
-        this.soluong = soluong;
-        this.trangthai = trangthai;
-    }
+    this.idsanphamchitiet = idsanphamchitiet;
+    this.idsanpham = idsanpham;
+    this.idthuonghieu = idthuonghieu;
+    this.idloaigiay = idloaigiay;
+    this.idkichco = idkichco;
+
+    this.idmausac = idmausac;
+    this.idxuatxu = idxuatxu;
+    this.idchatlieu = idchatlieu;
+    this.idloaidegiay = idloaidegiay;
+
+    this.idkieudang = idkieudang;
+    this.giaban = giaban;
+    this.soluong = soluong;
+    this.trangthai = trangthai;
+}
+
+    
 
     public sanphamchitiet(int idsanphamchitiet, int idsanpham, int idthuonghieu, int idloaigiay, int idkichco, int idmausac, int idxuatxu, int idchatlieu, int idloaidegiay, int idkieudang, String masanphamchitiet, BigDecimal giaban, int soluong, boolean trangthai) {
         this.idsanphamchitiet = idsanphamchitiet;

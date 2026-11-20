@@ -15,7 +15,7 @@ import thicuoimon.duan1.util.XQuery;
  */
 public class hinhthucthanhtoanDAOImpl implements hinhthucthanhtoanDAO{
 String findall = "select * from hinh_thuc_thanh_toan";
-    String findbyid = "select * from hinh_thuc_thanh_toan where idhinhthucthanhtoan=? and trangthaian=1";
+    String findbyid = "select * from hinh_thuc_thanh_toan where idhinhthucthanhtoan=?";
     String findbytenhttt = " select * \n"
             + "from  hinh_thuc_thanh_toan httt \n"
             + " where httt.tenhinhthucthanhtoan=? and httt.trangthaian=1 ";

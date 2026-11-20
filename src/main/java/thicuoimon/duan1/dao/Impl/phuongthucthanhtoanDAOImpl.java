@@ -17,7 +17,7 @@ import thicuoimon.duan1.util.XQuery;
 public class phuongthucthanhtoanDAOImpl implements phuongthucthanhtoanDAO{
 
     String cre = "insert into phuong_thuc_thanh_toan(idhinhthucthanhtoan,sotienthanhtoan,trangthai) values(?,?,?)";
-    String findbyid = "select * from phuong_thuc_thanh_toan where idphuongthucthanhtoan=? and trangthai=1";
+    String findbyid = "select * from phuong_thuc_thanh_toan where idphuongthucthanhtoan=?";
 String finall="select * from phuong_thuc_thanh_toan";
     @Override
     public phuongthucthanhtoan create(phuongthucthanhtoan entity) {

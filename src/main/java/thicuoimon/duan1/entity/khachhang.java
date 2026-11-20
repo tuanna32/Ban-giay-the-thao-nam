@@ -18,7 +18,7 @@ public class khachhang {
     private Date ngaysinh;
     private String sodienthoai;
     private String email;
-    private Boolean gioitinh;
+ 
     private String nguoithem;
     private String nguoisua;
     private String nguoixoa;
@@ -44,7 +44,7 @@ public class khachhang {
         this.ngaysinh = ngaysinh;
         this.sodienthoai = sodienthoai;
         this.email = email;
-        this.gioitinh = gioitinh;
+      
         this.nguoithem = nguoithem;
         this.nguoisua = nguoisua;
         this.nguoixoa = nguoixoa;
@@ -61,7 +61,7 @@ public class khachhang {
         this.ngaysinh = ngaysinh;
         this.sodienthoai = sodienthoai;
         this.email = email;
-        this.gioitinh = gioitinh;
+       
         this.nguoithem = nguoithem;
         this.nguoisua = nguoisua;
         this.nguoixoa = nguoixoa;
@@ -127,13 +127,7 @@ public class khachhang {
         this.email = email;
     }
 
-    public Boolean getGioitinh() {
-        return gioitinh;
-    }
-
-    public void setGioitinh(Boolean gioitinh) {
-        this.gioitinh = gioitinh;
-    }
+    
 
     public String getNguoithem() {
         return nguoithem;
@@ -191,6 +185,7 @@ public class khachhang {
         this.trangthaian = trangthaian;
     }
 
+    
    
 }
 

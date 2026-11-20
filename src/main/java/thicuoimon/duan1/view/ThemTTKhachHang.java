@@ -4,6 +4,12 @@
  */
 package thicuoimon.duan1.view;
 
+import thicuoimon.duan1.dao.Impl.khachhangDAOImpl;
+import thicuoimon.duan1.dao.khachhangDAO;
+
+
+
+
 /**
  *
  * @author honga
@@ -183,27 +189,59 @@ public class ThemTTKhachHang extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         try {
-            thicuoimon.duan1.entity.KhachHang1 kh = new thicuoimon.duan1.entity.KhachHang1();
-            kh.setMakhachhang(jTextField2.getText());
-            kh.setTenkhachhang(jTextField3.getText());
-            kh.setSodienthoai(jTextField4.getText());
-            kh.setEmail(jTextField5.getText());
-            kh.setGioitinh(jRadioButton1.isSelected() ? "Nam" : "Nữ");
+            String ma = jTextField2.getText().trim();
+            String ten = jTextField3.getText().trim();
+            String sdt = jTextField4.getText().trim();
+            String email = jTextField5.getText().trim();
+            String ngaySinhStr = jTextField6.getText().trim();
 
-            // XỬ LÝ NGÀY SINH THEO ĐỊNH DẠNG dd-MM-yyyy
+            if (ma.isEmpty() || ten.isEmpty() || sdt.isEmpty() || email.isEmpty() || ngaySinhStr.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Không được để trống!");
+                return;
+            }
+
+            if (!sdt.matches("^0\\d{9}$")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "SĐT phải bắt đầu bằng 0 và đủ 10 số!");
+                return;
+            }
+
+            if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+                return;
+            }
+
+            khachhangDAO repo = new khachhangDAOImpl();
+            if (repo.isMaKhachHangExist(ma)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại!");
+                return;
+            }
+            if (repo.isSDTExist(sdt)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "SĐT đã tồn tại!");
+                return;
+            }
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-            java.util.Date date = sdf.parse(jTextField6.getText()); // Chuyển chuỗi dd-MM-yyyy thành Date
-            kh.setNgaysinh(new java.sql.Date(date.getTime())); // Chuyển sang sql.Date để lưu DB
+            java.util.Date date = sdf.parse(ngaySinhStr);
 
-            kh.setTrangthai(jComboBox1.getSelectedIndex() == 0 ? 1 : 0);
+            thicuoimon.duan1.entity.khachhang kh = new thicuoimon.duan1.entity.khachhang();
+            kh.setMakhachhang(ma);
+            kh.setHovaten(ten);
+            kh.setSodienthoai(sdt);
+            kh.setEmail(email);
+            
+            kh.setNgaysinh(new java.sql.Date(date.getTime()));
+            kh.setTrangthaian(jComboBox1.getSelectedIndex() == 0);
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thêm không?");
+            if (confirm != javax.swing.JOptionPane.YES_OPTION) {
+                return;
+            }
+            repo.insert(kh);
 
-            new thicuoimon.duan1.repository.KhachHangRepository().insert(kh);
             javax.swing.JOptionPane.showMessageDialog(this, "Thêm thành công!");
             this.dispose();
+
         } catch (java.text.ParseException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi: Định dạng ngày phải là dd-MM-yyyy (Ví dụ: 19-03-2026)");
+            javax.swing.JOptionPane.showMessageDialog(this, "Ngày phải dd-MM-yyyy (VD: 19-03-2026)");
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage());
         }

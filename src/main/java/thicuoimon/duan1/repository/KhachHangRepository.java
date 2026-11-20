@@ -6,9 +6,11 @@ package thicuoimon.duan1.repository;
 
 import java.sql.ResultSet;
 import java.util.List;
-import thicuoimon.duan1.entity.KhachHang1;
+import thicuoimon.duan1.entity.khachhang;
+
 import thicuoimon.duan1.util.XJdbc;
 import thicuoimon.duan1.util.XQuery;
+
 
 /**
  *
@@ -16,15 +18,15 @@ import thicuoimon.duan1.util.XQuery;
  */
 public class KhachHangRepository {
 
-    public List<KhachHang1> getAll() {
+    public List<khachhang> getAll() {
         String sql = "SELECT * FROM khach_hang";
-        return XQuery.getBeanList(KhachHang1.class, sql);
+        return XQuery.getBeanList(khachhang.class, sql);
     }
 
     // Lấy dữ liệu theo trang (Sử dụng OFFSET FETCH của SQL Server 2012+)
-    public List<KhachHang1> getPage(int page, int size) {
+    public List<khachhang> getPage(int page, int size) {
         String sql = "SELECT * FROM khach_hang ORDER BY idkhachhang OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        return XQuery.getBeanList(KhachHang1.class, sql, (page - 1) * size, size);
+        return XQuery.getBeanList(khachhang.class, sql, (page - 1) * size, size);
     }
 
 // Đếm tổng số bản ghi để tính toán số trang
@@ -40,15 +42,15 @@ public class KhachHangRepository {
         return 0;
     }
 
-    public void insert(KhachHang1 kh) {
-        String sql = "INSERT INTO khach_hang (makhachhang, tenkhachhang, sodienthoai, email, gioitinh, ngaysinh, trangthai) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, kh.getMakhachhang(), kh.getTenkhachhang(), kh.getSodienthoai(), kh.getEmail(), kh.getGioitinh(), kh.getNgaysinh(), kh.getTrangthai());
+    public void insert(khachhang kh) {
+        String sql = "INSERT INTO khach_hang (makhachhang, tenkhachhang, sodienthoai, email, ngaysinh, trangthai) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        XJdbc.executeUpdate(sql, kh.getMakhachhang(), kh.getHovaten(), kh.getSodienthoai(), kh.getEmail(), kh.getNgaysinh(), kh.isTrangthaian());
     }
 
     // Cập nhật
-    public void update(KhachHang1 kh) {
-        String sql = "UPDATE khach_hang SET makhachhang=?, tenkhachhang=?, sodienthoai=?, email=?, gioitinh=?, ngaysinh=?, trangthai=? WHERE idkhachhang=?";
-        XJdbc.executeUpdate(sql, kh.getMakhachhang(), kh.getTenkhachhang(), kh.getSodienthoai(), kh.getEmail(), kh.getGioitinh(), kh.getNgaysinh(), kh.getTrangthai(), kh.getIdkhachhang());
+    public void update(khachhang kh) {
+        String sql = "UPDATE khach_hang SET makhachhang=?, tenkhachhang=?, sodienthoai=?, email=?,  ngaysinh=?, trangthai=? WHERE idkhachhang=?";
+        XJdbc.executeUpdate(sql, kh.getMakhachhang(), kh.getHovaten(), kh.getSodienthoai(), kh.getEmail(),  kh.getNgaysinh(), kh.isTrangthaian(), kh.getIdkhachhang());
     }
 
     // Xóa (Nên dùng xóa mềm - đổi trạng thái)
@@ -58,14 +60,14 @@ public class KhachHangRepository {
     }
 
     // Tìm kiếm
-    public List<KhachHang1> search(String keyword) {
+    public List<khachhang> search(String keyword) {
         String sql = "SELECT * FROM khach_hang WHERE tenkhachhang LIKE ? OR sodienthoai LIKE ?";
-        return XQuery.getBeanList(KhachHang1.class, sql, "%" + keyword + "%", "%" + keyword + "%");
+        return XQuery.getBeanList(khachhang.class, sql, "%" + keyword + "%", "%" + keyword + "%");
     }
 
-    public thicuoimon.duan1.entity.KhachHang1 getById(int id) {
+    public thicuoimon.duan1.entity.khachhang getById(int id) {
         String sql = "SELECT * FROM khach_hang WHERE idkhachhang = ?";
-        List<thicuoimon.duan1.entity.KhachHang1> list = XQuery.getBeanList(thicuoimon.duan1.entity.KhachHang1.class, sql, id);
+        List<thicuoimon.duan1.entity.khachhang> list = XQuery.getBeanList(thicuoimon.duan1.entity.khachhang.class, sql, id);
         return list.isEmpty() ? null : list.get(0);
     }
 

@@ -11,12 +11,15 @@ import thicuoimon.duan1.entity.nhanvien;
  * @author Asus
  */
 public class XAuth {
-     public static nhanvien user = nhanvien.builder() 
-    .idvaitro(1)
-    .hovaten("Nguyễn Văn A")
-    .manhanvien("NV01")
-    .email("a@gmail.com")
-    .matkhau("123")
-    .trangthaian(true)
-    .build(); // biến user này sẽ được thay thế sau khi đăng nhập
+     public static nhanvien user;
+
+    static {
+        user = new nhanvien();
+        user.setIdvaitro(1);
+        user.setManhanvien("NV01");
+        user.setHovaten("Nguyễn Văn A");
+        user.setEmail("a@gmail.com");
+        user.setMatkhau("123");
+        user.setTrangthaian(true);
+    }
 }
